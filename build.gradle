@@ -4,7 +4,7 @@ plugins {
 }
 
 group = 'dev.arctic'
-version = '1.1.1'
+version = '1.2.0'
 
 repositories {
     mavenCentral()
@@ -20,10 +20,7 @@ repositories {
 
 dependencies {
     compileOnly "io.papermc.paper:paper-api:1.20.4-R0.1-SNAPSHOT"
-    testImplementation(platform("org.junit:junit-bom:5.9.1"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
-    implementation ("com.google.code.gson:gson:2.10.1")
-    implementation ("com.theokanning.openai-gpt3-java:service:0.18.2")
+    compileOnly "com.theokanning.openai-gpt3-java:service:0.18.2"
 
     compileOnly 'org.projectlombok:lombok:1.18.30'
     annotationProcessor 'org.projectlombok:lombok:1.18.30'
@@ -60,6 +57,7 @@ processResources {
 shadowJar {
     archiveClassifier.set('')
     configurations = [project.configurations.runtimeClasspath]
+    minimize()
 }
 
 build.dependsOn(shadowJar)
