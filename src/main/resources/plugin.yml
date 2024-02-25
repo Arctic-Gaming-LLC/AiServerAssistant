@@ -1,0 +1,13 @@
+name: AiServerAssistant
+version: '${version}'
+main: dev.arctic.aiserverassistant.AiServerAssistant
+api-version: '1.20'
+load: STARTUP
+commands:
+  aisa:
+    description: AI Server Assistant main command for admin operations
+    aliases: [asa]
+    permission-message: You do not have permission 'aisa.admin' to use this command.
+  ask:
+    description: Ask the AI for help
+    permission-message: You do not have permission 'aisa.ask' to ask questions.

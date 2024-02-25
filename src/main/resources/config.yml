@@ -1,0 +1,63 @@
+#▬▬▬▬| Config \▬▬▬▬
+#
+# !!! Important Links !!!
+#
+# OpenAI Pricing (this is not free!)
+# https://openai.com/pricing#language-models
+# (gpt 3 models are the cheapest, and will work well enough!)
+#
+# NOTICE!!!!!!!!!!!!!!!!!!!!
+# ASA has a very shaky form of encryption. While the default encryption is
+# not on GitHub, there's nothing stopping somebody from decompiling. If you
+# are compiling yourself, you should consider programming your own form of
+# encryption, or use https request to a private webserver (most secure).
+#
+# API Key
+# This is for your OpenAI token. You will need an OpenAI account, regular
+# ChatGPT is NOT the same thing.
+API_KEY: "sk-YOURKEYHERE"
+
+# Organization Key
+# this ensures that you're charging the right OpenAI Account. You can find this under
+# "settings" on your OpenAI Page. This also helps users who may be a part of multiple
+# organizations.
+Organization: "org-YOURORGHERE"
+
+# DO NOT CHANGE THIS VALUE!
+Encrypted: false
+
+# GPT Model
+# This is the model you want to use for the bot, remember that they have different
+# costs to each. GPT-3 is cheaper than GPT-4! Turbo versions are recommended.
+# "Base Models" aka "babbage" or "davinci" are not recommended, but may work fine.
+# It's also important to know that this GPT 4 cannot use web-capabilities.
+# You can see models here: https://platform.openai.com/docs/models/overview
+Model: "gpt-3-turbo"
+
+# Max Tokens
+# Each model has a maximum amount of tokens they can handle. Thankfully your players
+# really should never hit this mark with Minecraft chat limitations.
+# This lets you limit token usage and ensure you save some monies.
+Max tokens: 4096
+
+#▬▬▬▬| Customization \▬▬▬▬
+#
+# These are adjustments to the internal prompt that allow you to customize
+# the types of responses you get! Consider this a way to get your assistant
+# to adhere to the theme and style of your server!
+#
+# Personality/Persona
+# You can have your bot adopt a type of persona there. You can name a famous
+# person or someone from history with a distinct literary style, or just say
+# "super spunkalicious" (just "snarky" would work too...) Up to you :D
+Personality: "Neutral and Constructive"
+
+# Features
+# This is how the bot will understand your server! Keep in mind knowledge base
+# limitations. Some newer plugins might not be around yet.
+Features:
+  plugins:
+    - "plugin: description"
+    - "plugin: description"
+  gamemode: "what gamemode is the server?"
+
