@@ -2,11 +2,15 @@ package dev.arctic.aiserverassistant;
 
 import dev.arctic.aiserverassistant.commands.CommandManager;
 import dev.arctic.aiserverassistant.commands.CommandTabCompleter;
+import dev.arctic.aiserverassistant.utilities.Config;
+import dev.arctic.aiserverassistant.utilities.ConfigManager;
 import dev.arctic.aiserverassistant.utilities.Encryption;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Objects;
 import java.util.logging.Level;
 
@@ -21,13 +25,24 @@ public final class AiServerAssistant extends JavaPlugin {
         plugin = this;
 
         // Plugin startup logic
-        getConfig();
-        saveDefaultConfig();
-        updateConfigWithNewOptions();
+        if (!new File(getDataFolder().getAbsolutePath(), "config.yml").exists()) {
+            saveDefaultConfig();
+        } else {
+            Config config = ConfigManager.createConfigObject();
+            try {
+                ConfigManager.updateEncryptedConfig(config);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+        }
         plugin.getLogger().log(Level.WARNING, "[AiSA] Config Loaded!");
 
         //Get and Set our API keys and Org
-        updateKeys();
+        try {
+            updateKeys();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
 
         Objects.requireNonNull(getCommand("aisa")).setExecutor(new CommandManager());
         Objects.requireNonNull(getCommand("ask")).setExecutor(new CommandManager());
@@ -42,26 +57,14 @@ public final class AiServerAssistant extends JavaPlugin {
 
     }
 
-    private void updateConfigWithNewOptions() {
-        plugin.getConfig().options().copyDefaults(true);
-        plugin.saveConfig();
-    }
-
-    public void updateKeys(){
+    public void updateKeys() throws IOException {
         if(getConfig().getBoolean("Encrypted")){
-            setAPI_KEY(Encryption.decryptKey(Objects.requireNonNull(getConfig().getString("API_KEY"))));
-            setORG_KEY(Encryption.decryptKey(Objects.requireNonNull(getConfig().getString("Organization"))));
+            setAPI_KEY(Encryption.decryptKey(getConfig().getString("API_KEY")));
+            setORG_KEY(Encryption.decryptKey(getConfig().getString("Organization")));
         } else {
             plugin.getLogger().log(Level.SEVERE, "[AiSA] KEYS NOT ENCRYPTED, DOING THAT NOW!");
-            setAPI_KEY(getConfig().getString("API_KEY"));
-            setORG_KEY(getConfig().getString("Organization"));
-            String encryption = Encryption.encryptKey(getAPI_KEY());
-            String encryptedOrg = Encryption.encryptKey(getORG_KEY());
-            getConfig().set("API_KEY", encryption);
-            getConfig().set("Organization", encryptedOrg);
-            getConfig().set("Encrypted", true);
-            saveConfig();
-            saveDefaultConfig();
+            Config config = ConfigManager.createConfigObject();
+            ConfigManager.saveEncryptedConfig(config);
             plugin.getLogger().log(Level.SEVERE, "[AiSA] Keys Encrypted - VERIFY IN CONFIG.YML");
         }
         plugin.getLogger().log(Level.WARNING, "[AiSA] Keys Loaded!");

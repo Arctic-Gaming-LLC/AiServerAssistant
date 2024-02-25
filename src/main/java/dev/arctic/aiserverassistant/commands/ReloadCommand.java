@@ -3,12 +3,13 @@ package dev.arctic.aiserverassistant.commands;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+import java.io.IOException;
 import java.util.logging.Level;
 
 import static dev.arctic.aiserverassistant.AiServerAssistant.plugin;
 
 public class ReloadCommand {
-    public void execute(CommandSender sender) {
+    public void execute(CommandSender sender) throws IOException {
 
         boolean executable = false;
 
@@ -21,8 +22,6 @@ public class ReloadCommand {
         }
 
         if (executable){
-            plugin.reloadConfig();
-            plugin.saveDefaultConfig();
             plugin.updateKeys();
 
             plugin.getLogger().log(Level.WARNING, "[AiSA] Config Reloaded!");

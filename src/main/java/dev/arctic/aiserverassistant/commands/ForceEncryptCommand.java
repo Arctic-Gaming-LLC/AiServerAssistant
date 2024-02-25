@@ -2,11 +2,13 @@ package dev.arctic.aiserverassistant.commands;
 
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+
+import java.io.IOException;
 import java.util.logging.Level;
 import static dev.arctic.aiserverassistant.AiServerAssistant.plugin;
 
 public class ForceEncryptCommand {
-    public void execute(CommandSender sender) {
+    public void execute(CommandSender sender) throws IOException {
         boolean executable = false;
 
         if (sender instanceof Player) {

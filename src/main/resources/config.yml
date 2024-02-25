@@ -60,4 +60,5 @@ Features:
     - "plugin: description"
     - "plugin: description"
   gamemode: "what gamemode is the server?"
+  notes: "What else is there to know about your server?"
 

@@ -5,14 +5,28 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
+
 public class CommandManager implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, @NotNull String[] args) {
         if (label.equalsIgnoreCase("AiSA")) {
             if (args.length > 0) {
                 return switch (args[0].toLowerCase()) {
-                    case "force_encrypt" -> handleForceEncryptCommand(sender);
-                    case "reload" -> handleReloadCommand(sender);
+                    case "force_encrypt" -> {
+                        try {
+                            yield handleForceEncryptCommand(sender);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
+                    case "reload" -> {
+                        try {
+                            yield handleReloadCommand(sender);
+                        } catch (IOException e) {
+                            throw new RuntimeException(e);
+                        }
+                    }
                     default -> {
                         sender.sendMessage("Unknown AiSA command.");
                         yield false;
@@ -28,12 +42,12 @@ public class CommandManager implements CommandExecutor {
         return false;
     }
 
-    private boolean handleForceEncryptCommand(CommandSender sender) {
+    private boolean handleForceEncryptCommand(CommandSender sender) throws IOException {
         new ForceEncryptCommand().execute(sender);
         return true;
     }
 
-    private boolean handleReloadCommand(CommandSender sender) {
+    private boolean handleReloadCommand(CommandSender sender) throws IOException {
         new ReloadCommand().execute(sender);
         return true;
     }
