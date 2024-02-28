@@ -48,6 +48,8 @@ public final class AiServerAssistant extends JavaPlugin {
         Objects.requireNonNull(getCommand("ask")).setExecutor(new CommandManager());
         Objects.requireNonNull(getCommand("aisa")).setTabCompleter(new CommandTabCompleter());
 
+        //comment to bug github and check webhook!
+
     }
 
     @Override
