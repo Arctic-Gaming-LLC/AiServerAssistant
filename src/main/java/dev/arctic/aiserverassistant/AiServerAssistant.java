@@ -3,6 +3,7 @@ package dev.arctic.aiserverassistant;
 import dev.arctic.aiserverassistant.character.Character;
 import dev.arctic.aiserverassistant.commands.CommandManager;
 import dev.arctic.aiserverassistant.commands.CommandTabCompleter;
+import dev.arctic.aiserverassistant.listeners.AsyncChatEventListener;
 import dev.arctic.aiserverassistant.utilities.Encryption;
 import dev.arctic.aiserverassistant.utilities.UpdateCharacter;
 import lombok.Getter;
@@ -36,6 +37,9 @@ public final class AiServerAssistant extends JavaPlugin {
         character = new UpdateCharacter().updateCharacter();
         chatEnabled = getConfig().getBoolean("Respond In Chat");
 
+        getServer().getPluginManager().registerEvents(new AsyncChatEventListener(), this);
+
+
         //Get and Set our API keys and Org
         try {
             updateKeys();
@@ -68,6 +72,15 @@ public final class AiServerAssistant extends JavaPlugin {
     }
 
     public void loadFiles() {
+        // Check and create config.yml if it doesn't exist, or ensure defaults are set if it does
+        File configFile = new File(getDataFolder().getAbsolutePath(), "config.yml");
+        if (!configFile.exists()) {
+            saveResource("config.yml", false);
+        } else {
+            getConfig().options().copyDefaults(true);
+            saveDefaultConfig();
+        }
+
         // Check and create prompt.txt if it doesn't exist
         File promptFile = new File(getDataFolder().getAbsolutePath(), "prompt.txt");
         if (!promptFile.exists()) {
@@ -91,7 +104,7 @@ public final class AiServerAssistant extends JavaPlugin {
         if (!keysFile.exists()) {
             saveResource("keys.yml", false);
             PluginManager pluginManager = getServer().getPluginManager();
-            plugin.getLogger().log(Level.SEVERE, "API KEY NOT FOUND! CREATING IT NOW!" +
+            plugin.getLogger().log(Level.SEVERE, "API KEY NOT FOUND! CREATING KEYS.YML NOW!" +
                     "\nPlease update the API key in keys.yml, then restart the server." +
                     "\nSee config.yml for Setup Instructions.");
             pluginManager.disablePlugin(this);
@@ -109,15 +122,6 @@ public final class AiServerAssistant extends JavaPlugin {
                     e.printStackTrace(); // Handle exceptions properly
                 }
             }
-        }
-
-        // Check and create config.yml if it doesn't exist, or ensure defaults are set if it does
-        File configFile = new File(getDataFolder().getAbsolutePath(), "config.yml");
-        if (!configFile.exists()) {
-            saveResource("config.yml", false);
-        } else {
-            getConfig().options().copyDefaults(true);
-            saveDefaultConfig();
         }
     }
 

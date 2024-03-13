@@ -63,6 +63,7 @@ public class GPTRequest {
                 gamemode+ divider +
                 notes + "User Inquiry: " +
                         question);
+
         List<ChatMessage> messages = new ArrayList<>();
         messages.add(message);
         return messages;
