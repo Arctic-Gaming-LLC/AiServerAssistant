@@ -22,9 +22,10 @@ public class ReloadCommand {
         }
 
         if (executable){
+            plugin.loadFiles();
             plugin.updateKeys();
 
-            plugin.getLogger().log(Level.WARNING, "[AiSA] Config Reloaded!");
+            plugin.getLogger().log(Level.WARNING, "[AiSA] Config, Keys, and Prompt Reloaded!");
             if(sender instanceof Player){
                 sender.sendMessage("[AiSA] Config Reloaded!");
             }

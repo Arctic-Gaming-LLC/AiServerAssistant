@@ -1,6 +1,10 @@
 package dev.arctic.aiserverassistant.commands;
 
+import dev.arctic.aiserverassistant.AiServerAssistant;
+import dev.arctic.aiserverassistant.character.Character;
 import dev.arctic.aiserverassistant.gpt.GPTRequest;
+import net.kyori.adventure.text.Component;
+import net.kyori.adventure.text.format.TextColor;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -22,8 +26,14 @@ public class AskCommand {
             Bukkit.getScheduler().runTaskAsynchronously(plugin, () -> {
                 try {
                     String response = GPTRequest.getGPTRequest(String.valueOf(result).trim());
-                    // Ensure the response is sent back in the main thread
-                    Bukkit.getScheduler().runTask(plugin, () -> player.sendMessage("[AiSA] " + response));
+
+                    Character character = AiServerAssistant.character;
+
+                    Component message = Component.text().content(character.getName() + " » " + response)
+                                    .color(TextColor.fromHexString(character.getColor())).build();
+
+
+                    Bukkit.getScheduler().runTask(plugin, () -> player.sendMessage(message));
                 } catch (Exception e) {
                     plugin.getLogger().log(Level.SEVERE, "Error executing GPT request", e);
                 }

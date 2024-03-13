@@ -27,6 +27,10 @@ public class CommandManager implements CommandExecutor {
                             throw new RuntimeException(e);
                         }
                     }
+                    case "update_character" -> {
+                        sender.sendMessage("Updating character...");
+                        yield handleUpdateCharacterCommand(sender);
+                    }
                     default -> {
                         sender.sendMessage("Unknown AiSA command.");
                         yield false;
@@ -54,6 +58,11 @@ public class CommandManager implements CommandExecutor {
 
     private boolean handleAskCommand(CommandSender sender, String[] args) {
         new AskCommand().execute(sender, args);
+        return true;
+    }
+
+    private boolean handleUpdateCharacterCommand(@NotNull CommandSender sender) {
+        new UpdateCharacterCommand().execute(sender);
         return true;
     }
 }

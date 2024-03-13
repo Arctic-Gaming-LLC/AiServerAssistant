@@ -16,7 +16,7 @@ public class CommandTabCompleter implements TabCompleter {
     public @Nullable List<String> onTabComplete(@NotNull CommandSender commandSender, @NotNull Command command, @NotNull String alias, @NotNull String[] args) {
         if (alias.equalsIgnoreCase("AiSA")) {
             if (args.length == 1) {
-                return Arrays.asList("force_encrypt", "reload");
+                return Arrays.asList("force_encrypt", "reload", "update_character");
             }
         } else if (alias.equalsIgnoreCase("ask") && args.length == 1) {
             return new ArrayList<>();

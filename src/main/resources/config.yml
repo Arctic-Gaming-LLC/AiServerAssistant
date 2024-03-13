@@ -1,38 +1,35 @@
 #▬▬▬▬| Config \▬▬▬▬
 #
-# !!! Important Links !!!
+# !!! Important Notices !!!
 #
-# OpenAI Pricing (this is not free!)
+# OpenAI Pricing (THIS RESOURCE COST MONEY! (not to the dev tho :C)
 # https://openai.com/pricing#language-models
-# (gpt 3 models are the cheapest, and will work well enough!)
+# (gpt 3 models are the cheapest, and will work really well!)
 #
 # NOTICE!!!!!!!!!!!!!!!!!!!!
-# ASA has a very shaky form of encryption. While the default encryption is
+# AiSA has a very shaky form of encryption. While the default encryption is
 # not on GitHub, there's nothing stopping somebody from decompiling. If you
 # are compiling yourself, you should consider programming your own form of
 # encryption, or use https request to a private webserver (most secure).
 #
-# API Key
-# This is for your OpenAI token. You will need an OpenAI account, regular
-# ChatGPT is NOT the same thing.
-API_KEY: "sk-YOURKEYHERE"
-
-# Organization Key
-# this ensures that you're charging the right OpenAI Account. You can find this under
-# "settings" on your OpenAI Page. This also helps users who may be a part of multiple
-# organizations.
-Organization: "org-YOURORGHERE"
-
-# DO NOT CHANGE THIS VALUE!
-Encrypted: false
-
+# ▬▬▬▬/ INITIAL SETUP \▬▬▬▬
+#
+# STEP 1: If you do not have an OpenAI account, create one. https://platform.openai.com/docs/quickstart/account-setup
+# STEP 2: Create an API Key https://platform.openai.com/account/api-keys
+# STEP 3: Update the "keys.yml" file with your API Key and set "encrypted" to "false"
+# STEP 4: Start the server! It will AUTOMATICALLY ENCRYPT THE API KEY!
+# STEP 5: Verify your prompt.txt file. It should work well enough, but tweak it to your liking.
+#
+# You only need to follow these steps if you need to change your api key.
+#
+#▬▬▬▬/ Model \▬▬▬▬
 # GPT Model
 # This is the model you want to use for the bot, remember that they have different
 # costs to each. GPT-3 is cheaper than GPT-4! Turbo versions are recommended.
 # "Base Models" aka "babbage" or "davinci" are not recommended, but may work fine.
 # It's also important to know that this GPT 4 cannot use web-capabilities.
 # You can see models here: https://platform.openai.com/docs/models/overview
-Model: "gpt-3-turbo"
+Model: "gpt-3.5-turbo"
 
 # Max Tokens
 # Each model has a maximum amount of tokens they can handle. Thankfully your players
@@ -40,24 +37,37 @@ Model: "gpt-3-turbo"
 # This lets you limit token usage and ensure you save some monies.
 Max tokens: 4096
 
+# Temperature
+# This is how "creative" the bot will be. Float between 0 and 1. 0
+# 1 is very creative, 0 is very literal. 0.2 is a good middle ground.
+# if you use something creative like LOLCAT, you might want 0.5-0.6
+Temperature: 0.2
+
 #▬▬▬▬| Customization \▬▬▬▬
 #
 # These are adjustments to the internal prompt that allow you to customize
 # the types of responses you get! Consider this a way to get your assistant
 # to adhere to the theme and style of your server!
 #
-# Personality/Persona
+# Respond In Chat
+# Should the Ai be able to be prompted in chat?
+Respond In Chat: true
+
+# Character
 # You can have your bot adopt a type of persona there. You can name a famous
 # person or someone from history with a distinct literary style, or just say
 # "super spunkalicious" (just "snarky" would work too...) Up to you :D
-Personality: "Neutral and Constructive"
+Character:
+  Name: "your name here"
+  Personality: "your personality here"
+  Language: "how the bot should speak (Pirate Speak, UWU, LOLCAT, Friendly and supportive, etc.)"
+  Color: "0x4de1ff" # Hex color code for the bot's messages
 
 # Features
 # This is how the bot will understand your server! Keep in mind knowledge base
 # limitations. Some newer plugins might not be around yet.
 Features:
   plugins:
-    - "plugin: description"
     - "plugin: description"
   gamemode: "what gamemode is the server?"
   notes: "What else is there to know about your server?"
