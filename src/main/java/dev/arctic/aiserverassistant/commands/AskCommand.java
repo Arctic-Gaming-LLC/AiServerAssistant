@@ -29,7 +29,7 @@ public class AskCommand {
 
                     Character character = AiServerAssistant.character;
 
-                    Component message = Component.text().content(character.getName() + " » " + response)
+                    Component message = Component.text().content("[DM] " + character.getName() + " » " + response)
                                     .color(TextColor.fromHexString(character.getColor())).build();
 
 

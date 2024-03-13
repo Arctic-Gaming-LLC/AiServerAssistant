@@ -79,6 +79,7 @@ public final class AiServerAssistant extends JavaPlugin {
         } else {
             getConfig().options().copyDefaults(true);
             saveDefaultConfig();
+            new UpdateCharacter().updateCharacter();
         }
 
         // Check and create prompt.txt if it doesn't exist
